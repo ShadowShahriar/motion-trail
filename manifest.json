@@ -1,0 +1,21 @@
+{
+	"short_name": "Motion Trail",
+	"name": "Motion Trail",
+	"description": "Interactive Motion Trail Effect with Simplex Noise",
+	"icons": [
+		{
+			"src": "/images/favicon-192x192.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		},
+		{
+			"src": "/images/favicon-512x512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"start_ulr": "/index.html",
+	"display": "standalone",
+	"orientation": "portrait",
+	"theme_color": "#fff"
+}

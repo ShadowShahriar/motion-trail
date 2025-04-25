@@ -1,0 +1,206 @@
+/* === particles === */
+.particles {
+	--glow-layer: 0 0 0 0 rgba(0, 0, 0, 0);
+	background-color: #fff0;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0.85;
+	touch-action: none;
+}
+
+.particle {
+	--shadow-opacity: 0.06;
+	--depth-opacity: 0.2;
+
+	position: absolute;
+	left: 0;
+	top: 0;
+
+	opacity: 1;
+	box-sizing: border-box;
+	box-shadow: var(--glow-layer), 1.5015vmin 1.5015vmin 1.5015vmin 0 rgba(0, 0, 0, var(--shadow-opacity)),
+		inset 1.5015vmin 1.5015vmin 1.5015vmin 0 rgba(255, 255, 255, var(--depth-opacity)),
+		inset -1.5015vmin -1.5015vmin 1.5015vmin 0 rgba(0, 0, 0, var(--depth-opacity));
+
+	transform: translate(0, 0) scale(0) rotate(0);
+	animation: trail linear 0.7s var(--i, 0s) forwards;
+	will-change: transform, opacity;
+	pointer-events: none;
+}
+
+@keyframes trail {
+	10% {
+		transform: translate(0, 0) scale(1) rotate(0);
+	}
+	60% {
+		opacity: 1;
+	}
+	100% {
+		transform: translate(var(--shiftX, 0), var(--shiftY, 0)) scale(0) rotate(1turn);
+		opacity: 0;
+	}
+}
+
+/* === controls === */
+.controls {
+	position: fixed;
+	right: 0;
+	top: 0;
+	display: inline-block;
+	box-sizing: border-box;
+	padding: 2vmin;
+	text-align: right;
+	font-family: 'Montserrat', sans-serif;
+	font-size: max(0.8em, 2.5vmin);
+}
+
+input {
+	position: relative;
+	left: 0;
+	top: 0;
+	opacity: 0;
+	margin: 0 -7px; /* a typical Windows checkbox is 14x14 in size */
+}
+
+input:checked + label {
+	color: var(--accent);
+}
+
+input:checked + label::before {
+	transform: translateY(30%) scaleX(1);
+	transform-origin: left top;
+}
+
+input:focus-visible + label {
+	outline: 2px solid var(--accent);
+	outline-offset: 4px;
+}
+
+label {
+	position: relative;
+	margin: 0 0.6em 1em 0;
+	font-weight: 600;
+	cursor: pointer;
+	transition: color ease 400ms;
+	color: var(--text-secondary);
+	display: inline-block;
+}
+
+label::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	transform: translateY(30%) scaleX(0);
+	width: 100%;
+	height: 0.72em;
+	background-color: currentColor;
+	z-index: -1;
+	transform-origin: right top;
+	transition: transform ease 400ms;
+	opacity: 0.4;
+}
+
+label:hover {
+	color: var(--text);
+}
+
+/* === hint === */
+.hint {
+	position: absolute;
+	right: 5vmin;
+	bottom: 0;
+	transform: translate(0%, 100%);
+	width: max(6.4em, 20vmin);
+	min-width: 6.4em;
+	max-width: 20vmin;
+	pointer-events: none;
+	opacity: 0.8;
+	overflow: visible;
+}
+
+.hint-text {
+	color: var(--accent);
+	fill: currentColor;
+}
+
+.special-arrow {
+	stroke: currentColor;
+}
+
+body[data-hint-shown='yes'] .hint {
+	animation: hide ease 0.3s 0.7s forwards;
+}
+
+@keyframes hide {
+	to {
+		opacity: 0;
+	}
+}
+
+/* === making things look pretty === */
+html,
+body {
+	position: relative;
+	left: 0;
+	top: 0;
+	height: 100%;
+	margin: 0;
+	overflow: hidden;
+}
+
+html {
+	background: radial-gradient(circle at 50%, #fff, #f9f4fa) fixed 0 0 / 100% 100%;
+}
+
+body {
+	background-color: #fff0;
+	--accent: #245ef2;
+	--accent-alpha: #245ef2bb;
+	--text: #000;
+	--text-secondary: #00000093;
+}
+
+body::before {
+	content: '';
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	background: radial-gradient(circle at 50%, #151515, #000) fixed 0 0 / 100% 100%;
+	opacity: 0;
+	transition: opacity ease 300ms;
+	will-change: opacity;
+}
+
+@supports (-moz-appearance: none) {
+	body::before {
+		background: radial-gradient(circle at 50%, #111, #000) fixed 0 0 / 100% 100%;
+	}
+}
+
+body.glow {
+	--accent: #f224da;
+	--accent-alpha: #f224dabb;
+	--text: #fff;
+	--text-secondary: #ffffff93;
+}
+
+body.glow::before {
+	opacity: 1;
+}
+
+body.glow .particles {
+	--glow-layer: 0 0 15.015vmin 1.5015vmin currentColor;
+	filter: contrast(1.5);
+	opacity: 1;
+}
+
+::selection {
+	background-color: var(--accent-alpha);
+	color: #fff;
+}
