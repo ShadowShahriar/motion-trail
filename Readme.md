@@ -36,6 +36,7 @@ Jul 13, 2021 - Initial release
 May 28, 2022 - Update description markdown after CodePen platform update (mid-May)
 Jul 18, 2022 - Add mouse and touch support 🎉
 Apr 26, 2025 - Host on GitHub Pages
+Apr 26, 2025 - Disable 3D Depth option by default
 ```
 
 ## License
